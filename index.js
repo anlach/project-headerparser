@@ -4,6 +4,7 @@
 // init project
 require('dotenv').config();
 var express = require('express');
+const https = require('https')
 var app = express();
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
@@ -20,11 +21,14 @@ app.get('/', function (req, res) {
 });
 
 // your first API endpoint...
-app.get('/api/hello', function (req, res) {
-  res.json({ greeting: 'hello API' });
+app.get('/api/whoami', function (req, res) {
+  res.json({ 
+    ipaddress: req.ip
+  });
 });
 
 // listen for requests :)
-var listener = app.listen(process.env.PORT || 3000, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
-});
+// var listener = app.listen(process.env.PORT || 3000, function () {
+//   console.log('Your app is listening on port ' + listener.address().port);
+// });
+https.createServer(app).listen(443);
